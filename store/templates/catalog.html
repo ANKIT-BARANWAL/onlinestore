@@ -1,0 +1,53 @@
+<html>
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <link href='//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+    </head>
+    <body>
+        <nav class = "navbar navbar-default navbar-fixed-top">
+            <ul class = "nav navbar-nav navbar-left">
+                <li>
+                    <a class = "navbar-brand" href="/">Home</a></li>
+                <li><a href="/admin-login/">Admin Login</a></li>
+            </ul>
+            <ul class = "nav navbar-nav navbar-right">
+                <li>
+                    <a class = "navbar-brand" href="/cart/">Cart:  <b>({{cart_size}}) Items </b></a></li>
+                <li><a href="/cart/checkout/">Check Out!</a></li>
+            </ul>
+        </nav>
+        <br>
+        <br>
+        <div class ="page-header" style="text-align:center">
+            <h2 class="hey">Affordably! <b>You Wish!</b> <b>We Ship!</b></h2>
+            
+        </div>
+        <style>
+            .hey{
+                font-family: 'Lobster', cursive;
+            }
+        </style>
+        <div class="row">
+            {% for product in store_items %}
+            <div class ="col-md-4 well" style="text-align:center">
+                <b>{{product.name}}</b>
+                <br>
+                <p>{{product.description}}</p>
+                <br>
+                <img src={{product.imglink}} style="max-width:200px;height: 200px">
+                <br>
+                <span class="label label-primary">{{product.price}}</span>
+                <br>
+                <br>
+                <form method="post">
+                    {% csrf_token %}
+                    <input type="submit" value="Add to Cart!" class="btn btn-success">
+                    <input type="hidden" name="obj_id" value={{product.id}}>
+                </form>
+            </div>
+            {% endfor %}
+        </div>
+    </body>
+</html>

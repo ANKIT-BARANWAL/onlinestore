@@ -1,0 +1,62 @@
+<html>
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    </head>
+    <body>
+        <nav class = "navbar navbar-default navbar-fixed-top">
+            <ul class = "nav navbar-nav navbar-left">
+                <li>
+                    <a class = "navbar-brand" href="/">Home</a></li>
+                <li><a href="/admin-login/">Admin Login</a></li>
+            </ul>
+            <ul class = "nav navbar-nav navbar-right">
+                <li>
+                    <a class = "navbar-brand" href="/cart/">Cart:  <b>({{cart_size}}) Items </b></a></li>
+                <li><a href="/cart/checkout/">Check Out!</a></li>
+            </ul>
+        </nav>
+        <br>
+        <br>
+        <div class ="page-header" style="text-align:center">
+            <h2>StoreName</h2>
+        </div>
+        <style type="text/css">
+        .centerdiv{
+            width:45%;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+        }
+        .imgscale{
+            max-width:64px;
+            max-height:64px;
+        }
+        </style>
+        <div class="container well centerdiv">
+            <div>
+                <h3>Total Price:<br><br> <span class="label label-success">{{total_price}}</span></h3>
+                <br>
+                {% for item in cart_items %}
+                <div class="media">
+                    <a class="pull-left" href="#">
+                        <img class="media-object imgscale" src="{{item.imglink}}"/>
+                    </a>
+                    <div class="media-body">
+                        <h4 class="media-heading">{{item.name}}</h4>
+                        {{item.description}}
+                        <span class="badge pull-right">{{item.price}}</span>
+                    </div>
+                    <form method="post" action="remove/">
+                        {% csrf_token %}
+                        <input type="hidden" name="obj_id" value={{item.id}}/>
+                        <input type="submit" value="Remove" class="btn btn-danger pull-right">
+
+                    </form>
+                    
+
+                </div>
+                {% endfor %}
+                <button class="btn btn-success btn-lg" onclick="window.location = 'cart/checkout';">Checkout!</button>
+            </div> 
