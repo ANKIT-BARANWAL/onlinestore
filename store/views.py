@@ -96,7 +96,7 @@ def adminLogin(request):
             login(request,user)
             return redirect("admin")
         else:
-            return render(request,"admin_login", {'login':False})
+            return render(request,"admin_login.html", {'login':False})
     return render(request,"admin_login.html",None)
 
 @login_required

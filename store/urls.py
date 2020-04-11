@@ -11,4 +11,5 @@ urlpatterns = [
     path('cart/checkout/complete/',views.completeOrder,name="complete_order"),
     path('admin-login/',views.adminLogin,name="admin_login"),
     path('admin-panel/',views.adminDashboard,name="admin"),
+
 ]
